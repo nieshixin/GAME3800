@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 using System;
-using System.Collections.Generic;
 
 /// <summary>
 /// A base event describes a base in-game event that can be triggered. BaseEvents also have the ability to trigger an OnFinish event.
@@ -21,8 +21,15 @@ using System.Collections.Generic;
 /// </summary>
 public class BaseEvent : MonoBehaviour
 {
-    private event EventHandler Triggered;
-    private event EventHandler Finished;
+
+    [System.Serializable]
+    private sealed class BaseEventUnityEvent : UnityEvent<BaseEvent> { }
+
+
+    [SerializeField]
+    private BaseEventUnityEvent Triggered;
+    [SerializeField]
+    private BaseEventUnityEvent Finished;
 
     // Use this for initialization
     protected void Start()
@@ -32,42 +39,47 @@ public class BaseEvent : MonoBehaviour
     }
 
 
-    public void TestTrigger()
+    public void Trigger()
     {
-        Triggered(this, EventArgs.Empty);
+        Triggered.Invoke(this);
+    }
+
+    public void Finish()
+    {
+        Finished.Invoke(this);
     }
 
     #region Event Boilerplate
 
-    public void AddOnTrigger(EventHandler eh)
+    public void AddOnTrigger(UnityAction<BaseEvent> action)
     {
-        Triggered += eh;
+        Triggered.AddListener(action);
     }
 
-    public void RemoveOnTrigger(EventHandler eh)
+    public void RemoveOnTrigger(UnityAction<BaseEvent> action)
     {
-        Triggered -= eh;
+        Triggered.RemoveListener(action);
     }
 
-    public void AddOnFinished(EventHandler eh)
+    public void AddOnFinished(UnityAction<BaseEvent> action)
     {
-        Finished += eh;
+        Finished.AddListener(action);
     }
 
-    public void RemoveOnFinished(EventHandler eh)
+    public void RemoveOnFinished(UnityAction<BaseEvent> action)
     {
-        Finished -= eh;
+        Finished.RemoveListener(action);
     }
 
     #endregion
 
-    public virtual void OnTrigger(object sender, EventArgs e)
+    public virtual void OnTrigger(BaseEvent e)
     {
-        Debug.Log("ON TRIGGER called with sender \"" + sender + "\", and event args \"" + e + "\"");
+        Debug.Log("ON TRIGGER called for event " + e);
     }
 
-    public virtual void OnFinish(object sender, EventArgs e)
+    public virtual void OnFinish(BaseEvent e)
     {
-        Debug.Log("ON FINISH called with sender \"" + sender + "\", and event args \"" + e + "\"");
+        Debug.Log("ON FINISH called for event " + e);
     }
 }
