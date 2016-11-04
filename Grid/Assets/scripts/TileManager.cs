@@ -5,6 +5,6 @@ using System.Linq;
 public class TileManager {
 
 	public static List<GameObject> GetAllGameTiles() {
-		return GameObject.FindGameObjectsWithTag ("Tile").ToList();
+		return GameObject.FindGameObjectsWithTag (Tags.TILE).ToList();
 	}
 }
