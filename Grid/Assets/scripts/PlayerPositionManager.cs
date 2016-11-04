@@ -18,7 +18,7 @@ public class PlayerPositionManager : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		GameObject[] tiles = GameObject.FindGameObjectsWithTag ("Tile");
+		List<GameObject> tiles = TileManager.GetAllGameTiles ();
 
 		foreach (GameObject  tile in tiles) {
 			if (tile.transform.position == player.transform.position) {
@@ -35,6 +35,7 @@ public class PlayerPositionManager : MonoBehaviour {
 				// move player up
 				player.GetComponent<player>().moveUp();
 				Debug.Log("Player moved up");
+
 			}
 		} else if (Input.GetKeyDown (KeyCode.DownArrow)) {
 			if (CanMove (MOVE_DIRECTION.DOWN)) {

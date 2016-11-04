@@ -35,7 +35,7 @@ public class BaseEvent : MonoBehaviour
     protected void Start()
     {
         AddOnTrigger(OnTrigger);
-        AddOnTrigger(OnFinish);
+		AddOnFinished(OnFinish);
     }
 
 
