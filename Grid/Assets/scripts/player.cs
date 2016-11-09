@@ -4,6 +4,7 @@ using System.Linq;
 
 public class player : MonoBehaviour {
 
+	public bool locker = false;
 
 	// Use this for initialization
 	void Start () {
@@ -11,34 +12,40 @@ public class player : MonoBehaviour {
 	}
 
 	public void moveUp() {
-		transform.Translate (Vector2.up * 1);
-		BaseEvent e = GetCurrentEvent ();
-		if (e) {
-			e.Trigger ();
+		if (!locker) {
+			transform.Translate (Vector2.up * 1);
+			BaseEvent e = GetCurrentEvent ();
+			if (e) {
+				e.Trigger ();
+			}
 		}
 
 	}
 	public void moveR() {
-		transform.Translate (Vector2.right * 1);
-		BaseEvent e = GetCurrentEvent ();
-		if (e) {
-			e.Trigger ();
+		if (!locker) {
+			transform.Translate (Vector2.right * 1);
+			BaseEvent e = GetCurrentEvent ();
+			if (e) {
+				e.Trigger ();
+			}
 		}
-
 	}
 	public void moveL() {
-		transform.Translate (Vector2.left * 1);
-		BaseEvent e = GetCurrentEvent ();
-		if (e) {
-			e.Trigger ();
+		if (!locker) {
+			transform.Translate (Vector2.left * 1);
+			BaseEvent e = GetCurrentEvent ();
+			if (e) {
+				e.Trigger ();
+			}
 		}
-
 	}
 	public void moveDown() {
-		transform.Translate (Vector2.down * 1);
-		BaseEvent e = GetCurrentEvent ();
-		if (e) {
-			e.Trigger ();
+		if (!locker) {
+			transform.Translate (Vector2.down * 1);
+			BaseEvent e = GetCurrentEvent ();
+			if (e) {
+				e.Trigger ();
+			}
 		}
 	}
 
@@ -47,5 +54,18 @@ public class player : MonoBehaviour {
 			.Where (gameObj => gameObj.transform.position == transform.position)
 			.Select(gameObj => gameObj.GetComponent<BaseEvent>())
 			.First ();
+	}
+
+	public void lockPlayer() {
+		
+		if (!locker) {
+			locker = true;
+		}
+	}
+
+	public void unlockPlayer() {
+		if (locker) {
+			locker = false;
+		}
 	}
 }

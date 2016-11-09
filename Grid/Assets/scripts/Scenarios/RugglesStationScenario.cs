@@ -10,11 +10,13 @@ public class RugglesStationScenario : MonoBehaviour {
     private Button talkButton;
     private int scenarioScriptIndex = 0;
     private BaseEvent theEvent;
+	private player player;
 
     void Start()
     {
         battleLogTextUI = GameObject.FindGameObjectWithTag(Tags.BATTLE_LOG_TEXT_UI).GetComponent<Text>();
         talkButton = GameObject.FindGameObjectWithTag(Tags.TALK_BUTTON).GetComponent<Button>();
+		player = GameObject.FindGameObjectWithTag (Tags.PLAYER).GetComponent<player> ();
     }
 
     List<string> scenarioScript = new List<string>
@@ -35,8 +37,12 @@ public class RugglesStationScenario : MonoBehaviour {
 
 	public void OnTrigger(BaseEvent e)
     {
+		
         theEvent = e;
         uiCanvas = theEvent.UICanvas;
+
+		// Lock player movement
+		player.lockPlayer();
 
         battleLogTextUI.text = GetNextScriptAndAdvanceIndex();
 
@@ -62,5 +68,8 @@ public class RugglesStationScenario : MonoBehaviour {
         scenarioScriptIndex = 0;
         talkButton.onClick.RemoveListener(OnTalk);
         theEvent.Finish();
+
+		// Unclock Player movement
+		player.unlockPlayer();
     }
 }
