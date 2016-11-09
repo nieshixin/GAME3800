@@ -6,6 +6,16 @@ using UnityEngine.UI;
 public class RugglesStationScenario : MonoBehaviour {
 
     private Canvas uiCanvas;
+    private Text battleLogTextUI;
+    private Button talkButton;
+    private int scenarioScriptIndex = 0;
+    private BaseEvent theEvent;
+
+    void Start()
+    {
+        battleLogTextUI = GameObject.FindGameObjectWithTag(Tags.BATTLE_LOG_TEXT_UI).GetComponent<Text>();
+        talkButton = GameObject.FindGameObjectWithTag(Tags.TALK_BUTTON).GetComponent<Button>();
+    }
 
     List<string> scenarioScript = new List<string>
     {
@@ -16,14 +26,41 @@ public class RugglesStationScenario : MonoBehaviour {
         " says the thoughtful lady."
     };
 
+    private string GetNextScriptAndAdvanceIndex()
+    {
+        string result = scenarioScriptIndex >= scenarioScript.Count ? "" : scenarioScript[scenarioScriptIndex];
+        scenarioScriptIndex++;
+        return result;
+    }
+
 	public void OnTrigger(BaseEvent e)
     {
-        uiCanvas = e.UICanvas;
+        theEvent = e;
+        uiCanvas = theEvent.UICanvas;
+
+        battleLogTextUI.text = GetNextScriptAndAdvanceIndex();
+
+        talkButton.onClick.AddListener(OnTalk);
+
+    }
+
+    private void OnTalk()
+    {
+        if (scenarioScriptIndex >= scenarioScript.Count)
+        {
+            ScenarioFinished();
+        } else
+        {
+            battleLogTextUI.text += "\n\n";
+            battleLogTextUI.text += GetNextScriptAndAdvanceIndex();
+        }
     }
 
 
-    public void ScenarioFinished(BaseEvent e)
+    private void ScenarioFinished()
     {
-        e.Finish();
+        scenarioScriptIndex = 0;
+        talkButton.onClick.RemoveListener(OnTalk);
+        theEvent.Finish();
     }
 }
