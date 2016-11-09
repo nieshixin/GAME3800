@@ -11,4 +11,5 @@ public class Tags {
     public static readonly string LOCATION_TEXT_UI = "LocationTextUI";
     public static readonly string BACKGROUND_IMAGE_UI = "BackgroundImageUI";
     public static readonly string PLAYER_PANEL_BACKGROUND_IMAGE_UI = "PlayerPanelBackgroundImageUI";
+    public static readonly string CANVAS_UI = "CanvasUI";
 }

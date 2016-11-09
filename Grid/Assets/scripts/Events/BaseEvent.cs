@@ -25,17 +25,30 @@ public class BaseEvent : MonoBehaviour
     [System.Serializable]
     private sealed class BaseEventUnityEvent : UnityEvent<BaseEvent> { }
 
-
     [SerializeField]
     private BaseEventUnityEvent Triggered;
     [SerializeField]
     private BaseEventUnityEvent Finished;
+
+    private static Canvas uiCanvas;
+    public Canvas UICanvas
+    {
+        get
+        {
+            return uiCanvas;
+        }
+    }
 
     // Use this for initialization
     protected void Start()
     {
         AddOnTrigger(OnTrigger);
 		AddOnFinished(OnFinish);
+
+        if (!uiCanvas)
+        {
+            uiCanvas = GameObject.FindGameObjectWithTag(Tags.CANVAS_UI).GetComponent<Canvas>();
+        }
     }
 
 
@@ -76,10 +89,12 @@ public class BaseEvent : MonoBehaviour
     public virtual void OnTrigger(BaseEvent e)
     {
         Debug.Log("ON TRIGGER called for event " + e);
+        uiCanvas.enabled = true;
     }
 
     public virtual void OnFinish(BaseEvent e)
     {
         Debug.Log("ON FINISH called for event " + e);
+        uiCanvas.enabled = false;
     }
 }
