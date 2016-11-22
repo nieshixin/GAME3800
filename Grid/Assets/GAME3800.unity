@@ -385,14 +385,14 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 12
+    m_FontSize: 11
     m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 1
+    m_BestFit: 1
+    m_MinSize: 0
     m_MaxSize: 40
     m_Alignment: 0
     m_AlignByGeometry: 0
-    m_RichText: 1
+    m_RichText: 0
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
@@ -473,6 +473,84 @@ MonoBehaviour:
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 460025801}
+          m_ObjectArgumentAssemblyTypeName: BaseEvent, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: BaseEvent+BaseEventUnityEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  Finished:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: BaseEvent+BaseEventUnityEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+--- !u!1 &523337928
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 523337929}
+  - 114: {fileID: 523337930}
+  m_Layer: 0
+  m_Name: ActionManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &523337929
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 523337928}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 894524050}
+  m_RootOrder: 3
+--- !u!114 &523337930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 523337928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0725e603a0a3b1f4c88e3eb55232f954, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  str: 
+--- !u!1 &531915738 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1000013331026500, guid: 2b9ea08af3d25a148acba6bf60bae005,
+    type: 2}
+  m_PrefabInternal: {fileID: 1507071628}
+--- !u!114 &531915742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 531915738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff7c424b76b0f4844b2ddeba833f1f09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Triggered:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 644879368}
+        m_MethodName: OnTrigger
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 531915742}
           m_ObjectArgumentAssemblyTypeName: BaseEvent, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -578,6 +656,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   locker: 0
+  physical:
+    name: 
+    description: 
+    maxValue: 0
+    currentValue: 0
+    incrementResponse: 
+    decrementResponse: 
+  mental:
+    name: 
+    description: 
+    maxValue: 0
+    currentValue: 0
+    incrementResponse: 
+    decrementResponse: 
+  actionTaken: 
+  actionNotTaken: 
+  defeated: 
+  myReactionList: 
 --- !u!1 &644879364
 GameObject:
   m_ObjectHideFlags: 0
@@ -588,6 +684,7 @@ GameObject:
   - 4: {fileID: 644879365}
   - 114: {fileID: 644879366}
   - 114: {fileID: 644879367}
+  - 114: {fileID: 644879368}
   m_Layer: 0
   m_Name: ScenarioManager
   m_TagString: Untagged
@@ -630,6 +727,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b92254a6e7be46418d597b5a7f41ab3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &644879368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 644879364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adc69f1758c68814c9ef016d52370a9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy: {fileID: 0}
 --- !u!4 &703689360 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4000012261580062, guid: 2b9ea08af3d25a148acba6bf60bae005,
@@ -776,6 +885,8 @@ Transform:
   m_Children:
   - {fileID: 202887541}
   - {fileID: 644879365}
+  - {fileID: 1857816518}
+  - {fileID: 523337929}
   m_Father: {fileID: 0}
   m_RootOrder: 3
 --- !u!1001 &1011230639
@@ -788,7 +899,7 @@ Prefab:
     - target: {fileID: 114000013732458644, guid: 094d5f2d14ebef044b8eb4ce5277d4ad,
         type: 2}
       propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 224000011813050330, guid: 094d5f2d14ebef044b8eb4ce5277d4ad,
         type: 2}
@@ -891,7 +1002,7 @@ Prefab:
     - target: {fileID: 223000013977874702, guid: 094d5f2d14ebef044b8eb4ce5277d4ad,
         type: 2}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224000014112901758, guid: 094d5f2d14ebef044b8eb4ce5277d4ad,
         type: 2}
@@ -967,7 +1078,7 @@ Prefab:
     - target: {fileID: 114000013732458644, guid: 094d5f2d14ebef044b8eb4ce5277d4ad,
         type: 2}
       propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114000013732458644, guid: 094d5f2d14ebef044b8eb4ce5277d4ad,
         type: 2}
@@ -1062,6 +1173,35 @@ Prefab:
     - target: {fileID: 1000012828322674, guid: 094d5f2d14ebef044b8eb4ce5277d4ad, type: 2}
       propertyPath: m_Name
       value: DescriptionDisplay
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000010725064832, guid: 094d5f2d14ebef044b8eb4ce5277d4ad, type: 2}
+      propertyPath: m_TagString
+      value: InputFieldUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000013732458644, guid: 094d5f2d14ebef044b8eb4ce5277d4ad,
+        type: 2}
+      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000013732458644, guid: 094d5f2d14ebef044b8eb4ce5277d4ad,
+        type: 2}
+      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000013732458644, guid: 094d5f2d14ebef044b8eb4ce5277d4ad,
+        type: 2}
+      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 644879368}
+    - target: {fileID: 114000013732458644, guid: 094d5f2d14ebef044b8eb4ce5277d4ad,
+        type: 2}
+      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: HandleInput
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000013732458644, guid: 094d5f2d14ebef044b8eb4ce5277d4ad,
+        type: 2}
+      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114000012205508600, guid: 094d5f2d14ebef044b8eb4ce5277d4ad, type: 2}
@@ -1275,6 +1415,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faa17120080724c5ab01061240cfa70f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentInput: 
 --- !u!1001 &1507071628
 Prefab:
   m_ObjectHideFlags: 0
@@ -1464,6 +1605,66 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!1 &1857816517
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1857816518}
+  - 114: {fileID: 1857816519}
+  m_Layer: 0
+  m_Name: EnemyManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1857816518
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1857816517}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 894524050}
+  m_RootOrder: 2
+--- !u!114 &1857816519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1857816517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a35db11989a26b0478fcf6a082455a13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myReactionList: 
+  myActionList: 
+  EnemyName: 
+  physical:
+    name: Physical
+    description: 
+    maxValue: 100
+    currentValue: 100
+    incrementResponse: Better
+    decrementResponse: Worse
+  mental:
+    name: 
+    description: 
+    maxValue: 0
+    currentValue: 0
+    incrementResponse: 
+    decrementResponse: 
+  actionTaken: 
+  actionNotTaken: 
+  defeated: 
 --- !u!4 &1946931817 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4000012261580062, guid: 2b9ea08af3d25a148acba6bf60bae005,

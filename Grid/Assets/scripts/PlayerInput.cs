@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class PlayerInput : MonoBehaviour {
 
+	public string currentInput;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -15,9 +17,8 @@ public class PlayerInput : MonoBehaviour {
 	}
 		
 
-	public void SendPlayerInput(string input){
-		input = GetComponent<InputField>().text;
-		Debug.Log (input);
+	public void SendPlayerInput(){
+		currentInput = GetComponent<InputField>().text;
 	}
 
 	public void ClearInputBar(){

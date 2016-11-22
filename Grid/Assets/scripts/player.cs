@@ -1,14 +1,47 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Linq;
+using System.Collections.Generic;
+using System;
 
 public class player : MonoBehaviour {
 
 	public bool locker = false;
+	public Attribute physical;
+	public Attribute mental;
+	public string actionTaken;
+	public string actionNotTaken;
+	public string defeated;
+	public List<ActionManager.ALL_ACTIONS> myReactionList = new List<ActionManager.ALL_ACTIONS>();
+
+
+	//helper function to check when a text input was received, if it was in the in the player's reaction list.
+	internal bool CanTakeAction(string EnemyAction)
+	{
+		if ((Enum.IsDefined(typeof(ActionManager.ALL_ACTIONS), EnemyAction)) &&
+			myReactionList.Contains(((ActionManager.ALL_ACTIONS)(Enum.Parse(typeof(ActionManager.ALL_ACTIONS), EnemyAction)))))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+
 
 	// Use this for initialization
 	void Start () {
-	
+		//initialize player's reaction list
+		myReactionList.Add (ActionManager.ALL_ACTIONS.SLAP);
+		myReactionList.Add (ActionManager.ALL_ACTIONS.MOCK);
+
+
+		this.physical = new Attribute ("Physical", "", 100, 100, "Better", "You are physically injured.");
+		this.mental = new Attribute ("Physical", "", 100, 100, "Better", "Your tiny heart is slightly broken.");
+
+		defeated = "Garbage, you are defeated!";
 	}
 
 	public void moveUp() {
@@ -56,6 +89,7 @@ public class player : MonoBehaviour {
 			.First ();
 	}
 
+	// Player movement locker
 	public void lockPlayer() {
 		
 		if (!locker) {
@@ -63,9 +97,45 @@ public class player : MonoBehaviour {
 		}
 	}
 
+	//Player movement Unlocker
 	public void unlockPlayer() {
 		if (locker) {
 			locker = false;
 		}
+	}
+
+	//Giving response when player is taken the given action
+	public string ActionTaken(string enemyAction, string enemyname) {
+		if (enemyAction == "SLAP") {
+			actionTaken = string.Format ("{0} badly {1}s you with no hesitation! {2}", 
+				enemyname, enemyAction, physical.decrementResponse);
+			this.physical.currentValue -= 30;
+
+		} else if (enemyAction == "MOCK") {
+			actionTaken = string.Format ("Damn! {0} is {1}ing you! what a Humiliation! {2}", 
+				enemyname, enemyAction, mental.decrementResponse);
+			this.mental.currentValue -= 40;
+		}
+
+		return actionTaken;
+	}
+
+	//Giving response when player is NOT taken the given action
+	public string ActionNotTaken(string enemyAction, string enemyname) {
+		actionNotTaken = string.Format ("{0} tries to {1} you but you have a tough ass! Damage Aviod.", 
+			enemyname, enemyAction);
+
+		return actionNotTaken;
+	}
+
+	// Check if player is defeated
+	public bool IsDead() {
+		return physical.currentValue <= 0 || mental.currentValue <= 0;
+	}
+
+	// Reset player's condition
+	public void Reset() {
+		physical.currentValue = physical.maxValue;
+		mental.currentValue = mental.maxValue;
 	}
 }

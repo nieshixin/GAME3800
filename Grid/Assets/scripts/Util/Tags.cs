@@ -14,4 +14,5 @@ public class Tags {
     public static readonly string CANVAS_UI = "CanvasUI";
     public static readonly string TALK_BUTTON = "TalkButtonUI";
     public static readonly string BATTLE_LOG_TEXT_UI = "BattleLogTextUI";
+	public static readonly string PLAYER_INPUT_FIELD = "InputFieldUI";
 }

@@ -11,6 +11,15 @@ public struct Attribute {
     public string incrementResponse;   // what is returned when the value is incremented
     public string decrementResponse;   // what is returned when the value decremented
 
+	public Attribute (string name, string des, int max, int current, string increm, string decrem) {
+		this.name = name;
+		this.description = des;
+		this.maxValue = max;
+		this.currentValue = current;
+		this.incrementResponse = increm;
+		this.decrementResponse = decrem;
+	}
+
     public bool Is(float val)
     {
         return currentValue == val;
