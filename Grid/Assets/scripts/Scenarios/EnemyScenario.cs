@@ -13,6 +13,7 @@ public class EnemyScenario : MonoBehaviour {
 	private player player;
 	private InputField playerinput;
 	private DynamicScrollView battleLog;
+	private Text NpcUI;
 
 
 
@@ -29,6 +30,7 @@ public class EnemyScenario : MonoBehaviour {
 		playerinput = GameObject.FindGameObjectWithTag (Tags.PLAYER_INPUT_FIELD).GetComponent<InputField> ();
 		playerinput.enabled = false;
 
+		NpcUI = GameObject.FindGameObjectWithTag (Tags.NPC_NAME).GetComponent<Text> ();
 	
 
 		//Initialize Enemy
@@ -132,6 +134,7 @@ public class EnemyScenario : MonoBehaviour {
 		theEvent = e;
 		uiCanvas = theEvent.UICanvas;
 
+		NpcUI.text = enemy.EnemyName;
 		// Lock player movement
 //		player.lockPlayer();
 
@@ -172,6 +175,7 @@ public class EnemyScenario : MonoBehaviour {
 		};
 		scenarioScript = new List<string>(initText);
 		battleLog.ClearOldElement();
+		NpcUI.text = "";
 
 		//Reset character for testing purpose
 		enemy.Reset ();

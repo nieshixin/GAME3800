@@ -11,6 +11,7 @@ TagManager:
   - TalkButtonUI
   - InputFieldUI
   - BattleLog
+  - NPCName
   layers:
   - Default
   - TransparentFX
