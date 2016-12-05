@@ -12,6 +12,7 @@ public class EnemyScenario : MonoBehaviour {
 	private BaseEvent theEvent;
 	private player player;
 	private InputField playerinput;
+	private DynamicScrollView battleLog;
 
 
 
@@ -21,7 +22,8 @@ public class EnemyScenario : MonoBehaviour {
 
 	void Start()
 	{
-		battleLogTextUI = GameObject.FindGameObjectWithTag(Tags.BATTLE_LOG_TEXT_UI).GetComponent<Text>();
+//		battleLogTextUI = GameObject.FindGameObjectWithTag(Tags.BATTLE_LOG_TEXT_UI).GetComponent<Text>();
+		battleLog = GameObject.FindGameObjectWithTag(Tags.DYNAMIC_BATTLE_LOG).GetComponent<DynamicScrollView>();
 		talkButton = GameObject.FindGameObjectWithTag(Tags.TALK_BUTTON).GetComponent<Button>();
 		player = GameObject.FindGameObjectWithTag (Tags.PLAYER).GetComponent<player> ();
 		playerinput = GameObject.FindGameObjectWithTag (Tags.PLAYER_INPUT_FIELD).GetComponent<InputField> ();
@@ -30,13 +32,11 @@ public class EnemyScenario : MonoBehaviour {
 	
 
 		//Initialize Enemy
-		enemy = GameObject.Find("EnemyManager").GetComponent<enemyExample>();
+//		enemy = GameObject.Find("EnemyManager").GetComponent<enemyExample>();
 
-		scenarioScript = new List<string>() {
-			"Oh Shit!",
-			"The " + enemy.EnemyName + " suddenly blocks your way, what do you wanna do?"
+//		Debug.Log("Enemy Name INIT: " + enemy.EnemyName);
 
-		};
+
 
 	}
 
@@ -69,21 +69,24 @@ public class EnemyScenario : MonoBehaviour {
 		if (input != "" && scenarioScriptIndex >= scenarioScript.Count) {
 			if (enemy.CanTakeAction (input)) {
 				scenarioScript.Add (enemy.ActionTaken (input));
-				battleLogTextUI.text += "\n\n";
-				battleLogTextUI.text += GetNextScriptAndAdvanceIndex ();
+				battleLog.AddNewElement(GetNextScriptAndAdvanceIndex());
+//				battleLogTextUI.text += "\n\n";
+//				battleLogTextUI.text += GetNextScriptAndAdvanceIndex ();
 
 
 			} else {
 				scenarioScript.Add (enemy.ActionNotTaken (input));
-				battleLogTextUI.text += "\n\n";
-				battleLogTextUI.text += GetNextScriptAndAdvanceIndex ();
+				battleLog.AddNewElement(GetNextScriptAndAdvanceIndex());
+//				battleLogTextUI.text += "\n\n";
+//				battleLogTextUI.text += GetNextScriptAndAdvanceIndex ();
 
 			}
 		}
 
 		if (enemy.IsDead ()) {
-			battleLogTextUI.text += "\n\n";
-			battleLogTextUI.text += enemy.defeated;
+//			battleLogTextUI.text += "\n\n";
+//			battleLogTextUI.text += enemy.defeated;
+			battleLog.AddNewElement(enemy.defeated);
 			playerinput.enabled = false;
 		} else {
 			//Enemy Generate Action towards player
@@ -91,16 +94,19 @@ public class EnemyScenario : MonoBehaviour {
 			Debug.Log("Enemy takes action: " + enemyAction);
 			if (player.CanTakeAction (enemyAction)) {
 				scenarioScript.Add(player.ActionTaken (enemyAction, enemy.EnemyName));
-				battleLogTextUI.text += "\n\n";
-				battleLogTextUI.text += GetNextScriptAndAdvanceIndex ();
+				battleLog.AddNewElement(GetNextScriptAndAdvanceIndex());
+//				battleLogTextUI.text += "\n\n";
+//				battleLogTextUI.text += GetNextScriptAndAdvanceIndex ();
 			} else {
 				scenarioScript.Add(player.ActionNotTaken (enemyAction, enemy.EnemyName));
-				battleLogTextUI.text += "\n\n";
-				battleLogTextUI.text += GetNextScriptAndAdvanceIndex ();
+				battleLog.AddNewElement(GetNextScriptAndAdvanceIndex());
+//				battleLogTextUI.text += "\n\n";
+//				battleLogTextUI.text += GetNextScriptAndAdvanceIndex ();
 			}
 			if (player.IsDead ()) {
-				battleLogTextUI.text += "\n";
-				battleLogTextUI.text += player.defeated;
+				battleLog.AddNewElement(player.defeated);
+//				battleLogTextUI.text += "\n";
+//				battleLogTextUI.text += player.defeated;
 				playerinput.enabled = false;
 			}
 		}
@@ -116,15 +122,21 @@ public class EnemyScenario : MonoBehaviour {
 	}
 
 	public void OnTrigger(BaseEvent e)
-	{
+	{	
+		scenarioScript = new List<string>() {
+			"Oh Shit!",
+			"The " + enemy.EnemyName + " suddenly blocks your way, what do you wanna do?"
+
+		};
 
 		theEvent = e;
 		uiCanvas = theEvent.UICanvas;
 
 		// Lock player movement
-		player.lockPlayer();
+//		player.lockPlayer();
 
-		battleLogTextUI.text = GetNextScriptAndAdvanceIndex();
+//		battleLogTextUI.text = GetNextScriptAndAdvanceIndex();
+		battleLog.AddNewElement(GetNextScriptAndAdvanceIndex());
 
 		talkButton.onClick.AddListener(OnTalk);
 
@@ -144,8 +156,9 @@ public class EnemyScenario : MonoBehaviour {
 
 		} else
 		{
-			battleLogTextUI.text += "\n\n";
-			battleLogTextUI.text += GetNextScriptAndAdvanceIndex();
+//			battleLogTextUI.text += "\n\n";
+//			battleLogTextUI.text += GetNextScriptAndAdvanceIndex();
+			battleLog.AddNewElement(GetNextScriptAndAdvanceIndex());
 			Debug.Log (scenarioScriptIndex.ToString ());
 		}
 	}
@@ -158,6 +171,7 @@ public class EnemyScenario : MonoBehaviour {
 
 		};
 		scenarioScript = new List<string>(initText);
+		battleLog.ClearOldElement();
 
 		//Reset character for testing purpose
 		enemy.Reset ();

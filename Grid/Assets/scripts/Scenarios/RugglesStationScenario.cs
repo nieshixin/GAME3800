@@ -11,10 +11,13 @@ public class RugglesStationScenario : MonoBehaviour {
     private int scenarioScriptIndex = 0;
     private BaseEvent theEvent;
 	private player player;
+	private DynamicScrollView battleLog;
+
 
     void Start()
     {
-        battleLogTextUI = GameObject.FindGameObjectWithTag(Tags.BATTLE_LOG_TEXT_UI).GetComponent<Text>();
+//        battleLogTextUI = GameObject.FindGameObjectWithTag(Tags.BATTLE_LOG_TEXT_UI).GetComponent<Text>();
+		battleLog = GameObject.FindGameObjectWithTag(Tags.DYNAMIC_BATTLE_LOG).GetComponent<DynamicScrollView>();
         talkButton = GameObject.FindGameObjectWithTag(Tags.TALK_BUTTON).GetComponent<Button>();
 		player = GameObject.FindGameObjectWithTag (Tags.PLAYER).GetComponent<player> ();
     }
@@ -44,7 +47,9 @@ public class RugglesStationScenario : MonoBehaviour {
 		// Lock player movement
 		player.lockPlayer();
 
-        battleLogTextUI.text = GetNextScriptAndAdvanceIndex();
+//        battleLogTextUI.text = GetNextScriptAndAdvanceIndex();
+		battleLog.AddNewElement(GetNextScriptAndAdvanceIndex());
+
 
         talkButton.onClick.AddListener(OnTalk);
 
@@ -57,8 +62,10 @@ public class RugglesStationScenario : MonoBehaviour {
             ScenarioFinished();
         } else
         {
-            battleLogTextUI.text += "\n\n";
-            battleLogTextUI.text += GetNextScriptAndAdvanceIndex();
+//            battleLogTextUI.text += "\n\n";
+//            battleLogTextUI.text += GetNextScriptAndAdvanceIndex();
+			battleLog.AddNewElement(GetNextScriptAndAdvanceIndex());
+
         }
     }
 
@@ -68,7 +75,7 @@ public class RugglesStationScenario : MonoBehaviour {
         scenarioScriptIndex = 0;
         talkButton.onClick.RemoveListener(OnTalk);
         theEvent.Finish();
-
+		battleLog.ClearOldElement();
 		// Unclock Player movement
 		player.unlockPlayer();
     }

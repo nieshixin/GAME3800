@@ -10,6 +10,7 @@ TagManager:
   - BattleLogTextUI
   - TalkButtonUI
   - InputFieldUI
+  - BattleLog
   layers:
   - Default
   - TransparentFX
