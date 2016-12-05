@@ -114,7 +114,7 @@ public class EnemyScenario : MonoBehaviour {
 
 
 		Debug.Log ("Enemy status: " + enemy.physical.currentValue.ToString () + " / " + enemy.mental.currentValue.ToString ());
-		Debug.Log ("Player status: " + player.physical.currentValue.ToString () + " / " + player.mental.currentValue.ToString ());	
+		Debug.Log ("Player status: " + player.GetTrait(Trait.Type.PHYSICAL).currentValue.ToString () + " / " + player.GetTrait(Trait.Type.MENTAL).currentValue.ToString ());	
 	}
 
 	public void EnemyTurn() {

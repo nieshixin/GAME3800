@@ -22,9 +22,9 @@ public class enemyExample : EnemyBase {
 		myActionList.Add(ActionManager.ALL_ACTIONS.KICK);
 
 		this.EnemyName = "The Ultimate Douch Bag";
-		//Declaring Traits
-		this.physical = new Trait ("Physical", "", "", "", 100, 100, "Better", "Enemy gets slightly injured.");
-		this.mental = new Trait ("Physical", "", "", "", 100, 100, "Better", "You successfully hurt his heart!");
+        //Declaring Traits
+        this.physical = new Trait("Physical", Trait.Type.PHYSICAL, "", "", "", 100, 100, "Better", "Enemy gets slightly injured.");
+		this.mental = new Trait ("Mental", Trait.Type.MENTAL, "", "", "", 100, 100, "Better", "You successfully hurt his heart!");
 		this.defeated = "Congradulations! You defeat " + EnemyName + "!";
 
 		Debug.Log (myActionList [UnityEngine.Random.Range(0, myActionList.Count)].ToString ());

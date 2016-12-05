@@ -7,8 +7,6 @@ using System;
 public class player : MonoBehaviour {
 
 	public bool locker = false;
-	public Trait physical;
-	public Trait mental;
 	public string actionTaken;
 	public string actionNotTaken;
 	public string defeated;
@@ -16,8 +14,14 @@ public class player : MonoBehaviour {
 
 	public List<Trait> listOfTraits = new List<Trait>();
 
-	//helper function to check when a text input was received, if it was in the in the player's reaction list.
-	internal bool CanTakeAction(string EnemyAction)
+    public Trait GetTrait(Trait.Type type)
+    {
+        if (listOfTraits == null || listOfTraits.Count == 0 || !listOfTraits.Any(t => t.type == type)) throw new Exception("No trait '" + type + "' on player");
+        return listOfTraits.Where(trait => trait.type == type).First();
+    }
+
+    //helper function to check when a text input was received, if it was in the in the player's reaction list.
+    internal bool CanTakeAction(string EnemyAction)
 	{
 		if ((Enum.IsDefined(typeof(ActionManager.ALL_ACTIONS), EnemyAction)) &&
 			myReactionList.Contains(((ActionManager.ALL_ACTIONS)(Enum.Parse(typeof(ActionManager.ALL_ACTIONS), EnemyAction)))))
@@ -39,11 +43,12 @@ public class player : MonoBehaviour {
 		myReactionList.Add (ActionManager.ALL_ACTIONS.MOCK);
 
 		//adding Traits
-		this.physical = new Trait ("Physical", "Feeling healthy", "Just another day", "Feel painful", 100, 100, "Better", "You are physically injured.");
-		this.mental = new Trait ("Physical", "good", "meh", "saw justin bieber today", 100, 100, "Better", "Your tiny heart is slightly broken.");
 
-		listOfTraits.Add (this.physical);
-		listOfTraits.Add (this.mental);
+		Trait physical = new Trait ("Physical", Trait.Type.PHYSICAL, "Feeling healthy", "Just another day", "Feel painful", 100, 100, "Better", "You are physically injured.");
+		Trait mental = new Trait ("Mental", Trait.Type.MENTAL, "good", "meh", "saw justin bieber today", 100, 100, "Better", "Your tiny heart is slightly broken.");
+
+		listOfTraits.Add (physical);
+		listOfTraits.Add (mental);
 
 		defeated = "Garbage, you were defeated!";
 	}
@@ -111,15 +116,18 @@ public class player : MonoBehaviour {
 	//Giving response when player is taken the given action
 	public string ActionTaken(string enemyAction, string enemyname) {
 		if (enemyAction == "SLAP") {
+            Trait traitAffected = GetTrait(Trait.Type.PHYSICAL);
 			actionTaken = string.Format ("{0} badly {1}s you with no hesitation! {2}", 
-				enemyname, enemyAction, physical.decrementResponse);
-			this.physical.currentValue -= 30;
+				enemyname, enemyAction, traitAffected.decrementResponse);
 
+            traitAffected.currentValue -= 30;
 		} else if (enemyAction == "MOCK") {
-			actionTaken = string.Format ("Damn! {0} is {1}ing you! what a Humiliation! {2}", 
-				enemyname, enemyAction, mental.decrementResponse);
-			this.mental.currentValue -= 40;
-		}
+            Trait traitAffected = GetTrait(Trait.Type.MENTAL);
+            actionTaken = string.Format ("Damn! {0} is {1}ing you! what a Humiliation! {2}", 
+				enemyname, enemyAction, traitAffected.decrementResponse);
+
+            traitAffected.currentValue -= 40;
+        }
 
 		return actionTaken;
 	}
@@ -134,12 +142,15 @@ public class player : MonoBehaviour {
 
 	// Check if player is defeated
 	public bool IsDead() {
-		return physical.currentValue <= 0 || mental.currentValue <= 0;
+		return GetTrait(Trait.Type.PHYSICAL).currentValue <= 0 || GetTrait(Trait.Type.MENTAL).currentValue <= 0;
 	}
 
 	// Reset player's condition
 	public void Reset() {
-		physical.currentValue = physical.maxValue;
-		mental.currentValue = mental.maxValue;
+        Trait physical = GetTrait(Trait.Type.PHYSICAL);
+        Trait mental = GetTrait(Trait.Type.MENTAL);
+
+        physical.currentValue = physical.maxValue;
+        mental.currentValue = mental.maxValue;
 	}
 }

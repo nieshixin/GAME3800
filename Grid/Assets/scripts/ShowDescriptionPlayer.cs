@@ -30,15 +30,15 @@ public class ShowDescriptionPlayer : MonoBehaviour {
 				if (at.currentValue >= 80) {
 					AddNewDescription (at.goodDescription);
 					}
-
+        
 			if (at.currentValue < 80 && at.currentValue >= 40) {
 				AddNewDescription (at.normalDescription);
-				Debug.Log ("normal triggered");
+				//Debug.Log ("normal triggered");
 					}
-
+        
 			 if (at.currentValue < 40) {
 				AddNewDescription (at.badDescription);
-				Debug.Log ("bad triggered");
+				//Debug.Log ("bad triggered");
 					}
 				}
 
