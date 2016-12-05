@@ -7,13 +7,14 @@ using System;
 public class player : MonoBehaviour {
 
 	public bool locker = false;
-	public Attribute physical;
-	public Attribute mental;
+	public Trait physical;
+	public Trait mental;
 	public string actionTaken;
 	public string actionNotTaken;
 	public string defeated;
 	public List<ActionManager.ALL_ACTIONS> myReactionList = new List<ActionManager.ALL_ACTIONS>();
 
+	public List<Trait> listOfTraits = new List<Trait>();
 
 	//helper function to check when a text input was received, if it was in the in the player's reaction list.
 	internal bool CanTakeAction(string EnemyAction)
@@ -28,7 +29,7 @@ public class player : MonoBehaviour {
 			return false;
 		}
 	}
-
+		
 
 
 	// Use this for initialization
@@ -37,11 +38,14 @@ public class player : MonoBehaviour {
 		myReactionList.Add (ActionManager.ALL_ACTIONS.SLAP);
 		myReactionList.Add (ActionManager.ALL_ACTIONS.MOCK);
 
+		//adding Traits
+		this.physical = new Trait ("Physical", "Feeling healthy", "Just another day", "Feel painful", 100, 100, "Better", "You are physically injured.");
+		this.mental = new Trait ("Physical", "good", "meh", "saw justin bieber today", 100, 100, "Better", "Your tiny heart is slightly broken.");
 
-		this.physical = new Attribute ("Physical", "", 100, 100, "Better", "You are physically injured.");
-		this.mental = new Attribute ("Physical", "", 100, 100, "Better", "Your tiny heart is slightly broken.");
+		listOfTraits.Add (this.physical);
+		listOfTraits.Add (this.mental);
 
-		defeated = "Garbage, you are defeated!";
+		defeated = "Garbage, you were defeated!";
 	}
 
 	public void moveUp() {

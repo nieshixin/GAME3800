@@ -14,8 +14,8 @@ public class EnemyBase : MonoBehaviour {
 
 
 	public string EnemyName;
-	public Attribute physical;
-	public Attribute mental;
+	public Trait physical;
+	public Trait mental;
 	public string actionTaken;
 	public string actionNotTaken;
 	public string defeated;
