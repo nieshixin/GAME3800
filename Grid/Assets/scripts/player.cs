@@ -16,8 +16,7 @@ public class player : MonoBehaviour {
 
     public Trait GetTrait(Trait.Type type)
     {
-        if (listOfTraits == null || listOfTraits.Count == 0 || !listOfTraits.Any(t => t.type == type)) throw new Exception("No trait '" + type + "' on player");
-        return listOfTraits.Where(trait => trait.type == type).First();
+        return Trait.GetTrait(type, listOfTraits);
     }
 
     //helper function to check when a text input was received, if it was in the in the player's reaction list.

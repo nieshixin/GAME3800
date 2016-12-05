@@ -12,6 +12,7 @@ TagManager:
   - InputFieldUI
   - BattleLog
   - NPCName
+  - EnemyDescriptionUI
   layers:
   - Default
   - TransparentFX

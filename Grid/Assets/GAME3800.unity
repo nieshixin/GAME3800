@@ -648,24 +648,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   locker: 0
-  physical:
-    name: 
-    goodDescription: 
-    normalDescription: 
-    badDescription: 
-    maxValue: 0
-    currentValue: 0
-    incrementResponse: 
-    decrementResponse: 
-  mental:
-    name: 
-    goodDescription: 
-    normalDescription: 
-    badDescription: 
-    maxValue: 0
-    currentValue: 0
-    incrementResponse: 
-    decrementResponse: 
   actionTaken: 
   actionNotTaken: 
   defeated: 
@@ -1081,6 +1063,16 @@ Prefab:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 224000010599497028, guid: 094d5f2d14ebef044b8eb4ce5277d4ad,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.000045776367
+      objectReference: {fileID: 0}
+    - target: {fileID: 223000013977874702, guid: 094d5f2d14ebef044b8eb4ce5277d4ad,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 094d5f2d14ebef044b8eb4ce5277d4ad, type: 2}
   m_IsPrefabParent: 0
@@ -1190,11 +1182,11 @@ GameObject:
   m_Component:
   - 224: {fileID: 1304552828}
   - 222: {fileID: 1304552831}
-  - 114: {fileID: 1304552830}
   - 114: {fileID: 1304552829}
+  - 114: {fileID: 1304552830}
   m_Layer: 5
   m_Name: DescriptionDisplay
-  m_TagString: Untagged
+  m_TagString: EnemyDescriptionUI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1255,15 +1247,15 @@ MonoBehaviour:
 --- !u!114 &1304552830
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 114000010746289056, guid: 094d5f2d14ebef044b8eb4ce5277d4ad,
-    type: 2}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1304552827}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb2389f20fb364f38b76742a292b3379, type: 3}
+  m_Script: {fileID: 11500000, guid: bc84064fc486f69428ea8a0a2945ddf0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  descriptionFor: {fileID: 0}
 --- !u!222 &1304552831
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1626,24 +1618,7 @@ MonoBehaviour:
   myReactionList: 
   myActionList: 
   EnemyName: 
-  physical:
-    name: Physical
-    goodDescription: 
-    normalDescription: 
-    badDescription: 
-    maxValue: 100
-    currentValue: 100
-    incrementResponse: Better
-    decrementResponse: Worse
-  mental:
-    name: 
-    goodDescription: 
-    normalDescription: 
-    badDescription: 
-    maxValue: 0
-    currentValue: 0
-    incrementResponse: 
-    decrementResponse: 
+  traits: []
   actionTaken: 
   actionNotTaken: 
   defeated: 

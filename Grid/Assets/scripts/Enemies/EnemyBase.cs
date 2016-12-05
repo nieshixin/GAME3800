@@ -14,11 +14,24 @@ public class EnemyBase : MonoBehaviour {
 
 
 	public string EnemyName;
-	public Trait physical;
-	public Trait mental;
+    public List<Trait> traits;
 	public string actionTaken;
 	public string actionNotTaken;
 	public string defeated;
+
+    protected virtual void Start()
+    {
+        Trait physical = new Trait("Physical", Trait.Type.PHYSICAL, "Feeling healthy", "Just another day", "Feel painful", 100, 100, "Better", "You are physically injured.");
+        Trait mental = new Trait("Mental", Trait.Type.MENTAL, "good", "meh", "saw justin bieber today", 100, 100, "Better", "Your tiny heart is slightly broken.");
+
+        traits.Add(physical);
+        traits.Add(mental);
+    }
+
+    public Trait GetTrait(Trait.Type type)
+    {
+        return Trait.GetTrait(type, traits);
+    }
 
 
     //helper function to check when a text input was received, if it was in the actionlist also in the enemy's reaction list.
@@ -37,11 +50,13 @@ public class EnemyBase : MonoBehaviour {
 
 	// Validate enemy death
 	public bool IsDead() {
-		return physical.currentValue <= 0 || mental.currentValue <= 0;
+		return GetTrait(Trait.Type.PHYSICAL).currentValue <= 0 || GetTrait(Trait.Type.MENTAL).currentValue <= 0;
 	}
 
 	// Reset Enemy's condition
 	public void Reset() {
+        Trait physical = GetTrait(Trait.Type.PHYSICAL);
+        Trait mental = GetTrait(Trait.Type.MENTAL);
 		physical.currentValue = physical.maxValue;
 		mental.currentValue = mental.maxValue;
 	}
