@@ -13,6 +13,8 @@ public class EnemyScenario : MonoBehaviour {
 	private player player;
 	private InputField playerinput;
 	private DynamicScrollView battleLog;
+	private Text NpcUI;
+    private ShowEnemyDescription showEnemyDescription;
 
 
 
@@ -28,7 +30,9 @@ public class EnemyScenario : MonoBehaviour {
 		player = GameObject.FindGameObjectWithTag (Tags.PLAYER).GetComponent<player> ();
 		playerinput = GameObject.FindGameObjectWithTag (Tags.PLAYER_INPUT_FIELD).GetComponent<InputField> ();
 		playerinput.enabled = false;
+        showEnemyDescription = GameObject.FindGameObjectWithTag(Tags.ENEMY_DESCRIPTION_UI).GetComponent<ShowEnemyDescription>();
 
+		NpcUI = GameObject.FindGameObjectWithTag (Tags.NPC_NAME).GetComponent<Text> ();
 	
 
 		//Initialize Enemy
@@ -113,8 +117,8 @@ public class EnemyScenario : MonoBehaviour {
 
 
 
-		Debug.Log ("Enemy status: " + enemy.physical.currentValue.ToString () + " / " + enemy.mental.currentValue.ToString ());
-		Debug.Log ("Player status: " + player.physical.currentValue.ToString () + " / " + player.mental.currentValue.ToString ());	
+		Debug.Log ("Enemy status: " + enemy.GetTrait(Trait.Type.PHYSICAL).currentValue.ToString () + " / " + enemy.GetTrait(Trait.Type.MENTAL).currentValue.ToString ());
+		Debug.Log ("Player status: " + player.GetTrait(Trait.Type.PHYSICAL).currentValue.ToString () + " / " + player.GetTrait(Trait.Type.MENTAL).currentValue.ToString ());	
 	}
 
 	public void EnemyTurn() {
@@ -132,6 +136,7 @@ public class EnemyScenario : MonoBehaviour {
 		theEvent = e;
 		uiCanvas = theEvent.UICanvas;
 
+		NpcUI.text = enemy.EnemyName;
 		// Lock player movement
 //		player.lockPlayer();
 
@@ -141,6 +146,7 @@ public class EnemyScenario : MonoBehaviour {
 		talkButton.onClick.AddListener(OnTalk);
 		player.lockPlayer ();
 
+        showEnemyDescription.SetEnemy(enemy);
 	}
 
 	private void OnTalk()
@@ -173,6 +179,7 @@ public class EnemyScenario : MonoBehaviour {
 		};
 		scenarioScript = new List<string>(initText);
 		battleLog.ClearOldElement();
+		NpcUI.text = "";
 
 		//Reset character for testing purpose
 		enemy.Reset ();

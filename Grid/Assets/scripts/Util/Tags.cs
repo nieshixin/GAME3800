@@ -16,4 +16,6 @@ public class Tags {
     public static readonly string BATTLE_LOG_TEXT_UI = "BattleLogTextUI";
 	public static readonly string PLAYER_INPUT_FIELD = "InputFieldUI";
 	public static readonly string DYNAMIC_BATTLE_LOG = "BattleLog";
+	public static readonly string NPC_NAME = "NPCName";
+    public static readonly string ENEMY_DESCRIPTION_UI = "EnemyDescriptionUI";
 }
