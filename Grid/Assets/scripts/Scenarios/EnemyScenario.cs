@@ -139,6 +139,7 @@ public class EnemyScenario : MonoBehaviour {
 		battleLog.AddNewElement(GetNextScriptAndAdvanceIndex());
 
 		talkButton.onClick.AddListener(OnTalk);
+		player.lockPlayer ();
 
 	}
 
