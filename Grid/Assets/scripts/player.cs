@@ -54,41 +54,52 @@ public class player : MonoBehaviour {
 
 	public void moveUp() {
 		if (!locker) {
-			transform.Translate (Vector2.up * 1);
-			BaseEvent e = GetCurrentEvent ();
-			if (e) {
-				e.Trigger ();
-			}
+            StartCoroutine(Move(Vector2.up));
 		}
 
 	}
 	public void moveR() {
 		if (!locker) {
-			transform.Translate (Vector2.right * 1);
-			BaseEvent e = GetCurrentEvent ();
-			if (e) {
-				e.Trigger ();
-			}
-		}
+            StartCoroutine(Move(Vector2.right));
+        }
 	}
 	public void moveL() {
 		if (!locker) {
-			transform.Translate (Vector2.left * 1);
-			BaseEvent e = GetCurrentEvent ();
-			if (e) {
-				e.Trigger ();
-			}
-		}
+            StartCoroutine(Move(Vector2.left));
+        }
 	}
 	public void moveDown() {
 		if (!locker) {
-			transform.Translate (Vector2.down * 1);
-			BaseEvent e = GetCurrentEvent ();
-			if (e) {
-				e.Trigger ();
-			}
-		}
+            StartCoroutine(Move(Vector2.down));
+        }
 	}
+
+    private IEnumerator Move(Vector2 dVector)
+    {
+        lockPlayer();
+
+        Vector2 endLocation = transform.position + new Vector3(dVector.x, dVector.y, 0);
+        float duration = .55f;
+        float timeStep = 1f / 50f;
+        Vector2 dVectorPerStep = dVector * timeStep / duration;
+        float startTime = Time.time;
+
+        while (Time.time <= startTime + duration)
+        {
+            transform.Translate(dVectorPerStep);
+            yield return new WaitForFixedUpdate();
+        }
+        transform.position = endLocation;
+        unlockPlayer();
+
+        // trigger current event
+        BaseEvent e = GetCurrentEvent();
+        if (e)
+        {
+            e.Trigger();
+        }
+
+    }
 
 	private BaseEvent GetCurrentEvent() {
 		return TileManager.GetAllGameTiles ()
