@@ -23,6 +23,7 @@ public class TriBroScenario : MonoBehaviour {
 	private Image avatar;
 	public KoreanTriBro enemy;
 
+	public Sprite defAvatar;
 	void Start()
 	{
 		//		battleLogTextUI = GameObject.FindGameObjectWithTag(Tags.BATTLE_LOG_TEXT_UI).GetComponent<Text>();
@@ -131,9 +132,9 @@ public class TriBroScenario : MonoBehaviour {
 	public void OnTrigger(BaseEvent e)
 	{	
 		scenarioScript = new List<string>() {
-			"WTF",
-			"You see the principle, but he is lying down on the green line, wait, he is tied on greenline by with ropes by a 3 Korean brothers.", 
-			"What is your action now?"		
+			"WTF!",
+			"You see the principle, but he is laying down on the green line, wait, he was tied on the railway by 3 Korean brothers.", 
+			"What is your action now?"
 		};
 
 		theEvent = e;
@@ -178,17 +179,15 @@ public class TriBroScenario : MonoBehaviour {
 	private void RebuildScenario() {
 		string[] initText = 
 		{
-			"WTF",
-			"You see the principle, but he is lying down on the green line, wait, he is tied on greenline by with ropes by a 3 Korean brothers.", 
-			"What is your action now?"
+			"The Korean brothers ran away, the principle is safe now."
 		};
 		scenarioScript = new List<string>();
 		battleLog.ClearOldElement();
 		NpcUI.text = "";
 
 		//Reset character for testing purpose
-		enemy.Reset ();
-		player.Reset ();
+		//enemy.Reset ();
+		//player.Reset ();
 	}
 
 	private void ScenarioFinished()
@@ -203,6 +202,8 @@ public class TriBroScenario : MonoBehaviour {
 		RebuildScenario ();
 		inputmg.sindex = 0;
 
+		//set avatar back to default
+		avatar.sprite = defAvatar;
 	}
 	void update() {
 

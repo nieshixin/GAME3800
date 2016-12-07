@@ -18,7 +18,7 @@ public class EnemyScenario : MonoBehaviour {
 
 	private InputManager inputmg;
 
-
+	public Sprite defAvt;
 	private List<string> scenarioScript;
 	private int ScenarioIndex = 1;
 	public Sprite avt;
@@ -121,6 +121,8 @@ public class EnemyScenario : MonoBehaviour {
 
 	public void OnTrigger(BaseEvent e)
 	{	
+		
+
 		scenarioScript = new List<string>() {
 			"Oh Shit!",
 			"The " + enemy.EnemyName + " suddenly blocks your way, what do you wanna do?"
@@ -173,8 +175,7 @@ public class EnemyScenario : MonoBehaviour {
 	private void RebuildScenario() {
 		string[] initText = 
 		{
-			"Oh Shit!",
-			"The " + enemy.EnemyName + " suddenly blocks your way, what do you wanna do?"
+			"You had defeated" + enemy.EnemyName + ", he's laying on the ground and lost his consciousness."
 
 		};
 		scenarioScript = new List<string>();
@@ -182,8 +183,8 @@ public class EnemyScenario : MonoBehaviour {
 		NpcUI.text = "";
 
 		//Reset character for testing purpose
-		enemy.Reset ();
-		player.Reset ();
+		//enemy.Reset ();
+		//player.Reset ();
 	}
 
 	private void ScenarioFinished()
@@ -198,7 +199,7 @@ public class EnemyScenario : MonoBehaviour {
 		RebuildScenario ();
 
 		inputmg.sindex = 0;
-
+		avatar.sprite = defAvt;
 	}
 
 	void update() {
