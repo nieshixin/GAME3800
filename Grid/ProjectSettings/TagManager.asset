@@ -13,6 +13,7 @@ TagManager:
   - BattleLog
   - NPCName
   - EnemyDescriptionUI
+  - NPCAvatar
   layers:
   - Default
   - TransparentFX

@@ -18,4 +18,5 @@ public class Tags {
 	public static readonly string DYNAMIC_BATTLE_LOG = "BattleLog";
 	public static readonly string NPC_NAME = "NPCName";
     public static readonly string ENEMY_DESCRIPTION_UI = "EnemyDescriptionUI";
+	public static readonly string ENEMY_AVATAR = "NPCAvatar";
 }

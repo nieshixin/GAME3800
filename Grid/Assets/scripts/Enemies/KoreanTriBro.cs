@@ -24,7 +24,7 @@ public class KoreanTriBro : EnemyBase {
 		myActionList.Add(ActionManager.ALL_ACTIONS.TRI_PUNCH);
 		myActionList.Add(ActionManager.ALL_ACTIONS.TRI_THIS);
 		myActionList.Add(ActionManager.ALL_ACTIONS.KICK);
-		myReactionList.Add(ActionManager.ALL_ACTIONS.SLEEP);
+		myActionList.Add(ActionManager.ALL_ACTIONS.SLEEP);
 
 
 		this.EnemyName = "Korean Tri-Bro";

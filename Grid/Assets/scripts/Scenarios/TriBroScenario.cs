@@ -19,7 +19,8 @@ public class TriBroScenario : MonoBehaviour {
 
 	private int ScenarioIndex = 2;
 	private List<string> scenarioScript;
-
+	public Sprite avt;
+	private Image avatar;
 	public KoreanTriBro enemy;
 
 	void Start()
@@ -36,7 +37,7 @@ public class TriBroScenario : MonoBehaviour {
 		Debug.Log(playerinput.onEndEdit.GetPersistentTarget (2).ToString());
 
 		NpcUI = GameObject.FindGameObjectWithTag (Tags.NPC_NAME).GetComponent<Text> ();
-
+		avatar = GameObject.FindGameObjectWithTag (Tags.ENEMY_AVATAR).GetComponent<Image> ();
 		//Initialize Enemy
 		//		enemy = GameObject.Find("EnemyManager").GetComponent<enemyExample>();
 
@@ -148,6 +149,7 @@ public class TriBroScenario : MonoBehaviour {
 		talkButton.onClick.AddListener(OnTalk);
 
 		showEnemyDescription.SetEnemy(enemy);
+		avatar.sprite = avt;
 
 		inputmg.sindex = ScenarioIndex;
 	}

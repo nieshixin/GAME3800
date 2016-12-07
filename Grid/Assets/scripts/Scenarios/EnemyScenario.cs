@@ -18,9 +18,11 @@ public class EnemyScenario : MonoBehaviour {
 
 	private InputManager inputmg;
 
+
 	private List<string> scenarioScript;
 	private int ScenarioIndex = 1;
-
+	public Sprite avt;
+	private Image avatar;
 	public enemyExample enemy;
 
 	void Start()
@@ -36,7 +38,7 @@ public class EnemyScenario : MonoBehaviour {
 		NpcUI = GameObject.FindGameObjectWithTag (Tags.NPC_NAME).GetComponent<Text> ();
 		inputmg = GameObject.Find ("InputManager").GetComponent<InputManager> ();
 	
-
+		avatar = GameObject.FindGameObjectWithTag (Tags.ENEMY_AVATAR).GetComponent<Image> ();
 		//Initialize Enemy
 //		enemy = GameObject.Find("EnemyManager").GetComponent<enemyExample>();
 
@@ -139,6 +141,7 @@ public class EnemyScenario : MonoBehaviour {
 
         showEnemyDescription.SetEnemy(enemy);
 //
+		avatar.sprite = avt;
 
 		inputmg.sindex = ScenarioIndex;
 	}
@@ -194,6 +197,7 @@ public class EnemyScenario : MonoBehaviour {
 		RebuildScenario ();
 
 		inputmg.sindex = 0;
+
 	}
 
 	void update() {
