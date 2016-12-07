@@ -9,7 +9,7 @@ using System.Collections.Generic;
 public class enemyExample : EnemyBase {
 
 	// Use this for initialization
-	protected override void Start () {
+	void Start () {
 		Debug.Log ("Initialize Enemy");
 		//so from all available actions: laugh, cry, mock, this enemy accept 2 of them
 		myReactionList.Add(ActionManager.ALL_ACTIONS.KICK);

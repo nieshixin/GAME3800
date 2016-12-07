@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
-public class EnemyScenario : MonoBehaviour {
+public class TriBroScenario : MonoBehaviour {
 
 	private Canvas uiCanvas;
 	private Text battleLogTextUI;
@@ -14,35 +14,34 @@ public class EnemyScenario : MonoBehaviour {
 	private InputField playerinput;
 	private DynamicScrollView battleLog;
 	private Text NpcUI;
-    private ShowEnemyDescription showEnemyDescription;
-
+	private ShowEnemyDescription showEnemyDescription;
 	private InputManager inputmg;
 
-
+	private int ScenarioIndex = 2;
 	private List<string> scenarioScript;
-	private int ScenarioIndex = 1;
 	public Sprite avt;
 	private Image avatar;
-	public enemyExample enemy;
+	public KoreanTriBro enemy;
 
 	void Start()
 	{
-//		battleLogTextUI = GameObject.FindGameObjectWithTag(Tags.BATTLE_LOG_TEXT_UI).GetComponent<Text>();
+		//		battleLogTextUI = GameObject.FindGameObjectWithTag(Tags.BATTLE_LOG_TEXT_UI).GetComponent<Text>();
 		battleLog = GameObject.FindGameObjectWithTag(Tags.DYNAMIC_BATTLE_LOG).GetComponent<DynamicScrollView>();
 		talkButton = GameObject.FindGameObjectWithTag(Tags.TALK_BUTTON).GetComponent<Button>();
 		player = GameObject.FindGameObjectWithTag (Tags.PLAYER).GetComponent<player> ();
 		playerinput = GameObject.FindGameObjectWithTag (Tags.PLAYER_INPUT_FIELD).GetComponent<InputField> ();
 		playerinput.enabled = false;
-        showEnemyDescription = GameObject.FindGameObjectWithTag(Tags.ENEMY_DESCRIPTION_UI).GetComponent<ShowEnemyDescription>();
+		showEnemyDescription = GameObject.FindGameObjectWithTag(Tags.ENEMY_DESCRIPTION_UI).GetComponent<ShowEnemyDescription>();
+		inputmg = GameObject.Find ("InputManager").GetComponent<InputManager> ();
+
+		Debug.Log(playerinput.onEndEdit.GetPersistentTarget (2).ToString());
 
 		NpcUI = GameObject.FindGameObjectWithTag (Tags.NPC_NAME).GetComponent<Text> ();
-		inputmg = GameObject.Find ("InputManager").GetComponent<InputManager> ();
-	
 		avatar = GameObject.FindGameObjectWithTag (Tags.ENEMY_AVATAR).GetComponent<Image> ();
 		//Initialize Enemy
-//		enemy = GameObject.Find("EnemyManager").GetComponent<enemyExample>();
+		//		enemy = GameObject.Find("EnemyManager").GetComponent<enemyExample>();
 
-//		Debug.Log("Enemy Name INIT: " + enemy.EnemyName);
+		//		Debug.Log("Enemy Name INIT: " + enemy.EnemyName);
 
 
 
@@ -50,9 +49,9 @@ public class EnemyScenario : MonoBehaviour {
 
 	//List<string> scenarioScript = new List<string>
 	//{
-//		"An ultimate douch bag suddenly blocks your way, what do you wanna do?"
+	//		"An ultimate douch bag suddenly blocks your way, what do you wanna do?"
 
-//	};
+	//	};
 
 	private string GetNextScriptAndAdvanceIndex()
 	{
@@ -78,15 +77,22 @@ public class EnemyScenario : MonoBehaviour {
 			if (enemy.CanTakeAction (input)) {
 				scenarioScript.Add (enemy.ActionTaken (input));
 				battleLog.AddNewElement(GetNextScriptAndAdvanceIndex());
-//				
+				//				battleLogTextUI.text += "\n\n";
+				//				battleLogTextUI.text += GetNextScriptAndAdvanceIndex ();
+
+
 			} else {
 				scenarioScript.Add (enemy.ActionNotTaken (input));
 				battleLog.AddNewElement(GetNextScriptAndAdvanceIndex());
-//				
+				//				battleLogTextUI.text += "\n\n";
+				//				battleLogTextUI.text += GetNextScriptAndAdvanceIndex ();
+
 			}
 		}
 
 		if (enemy.IsDead ()) {
+			//			battleLogTextUI.text += "\n\n";
+			//			battleLogTextUI.text += enemy.defeated;
 			battleLog.AddNewElement(enemy.defeated);
 			playerinput.enabled = false;
 		} else {
@@ -96,15 +102,18 @@ public class EnemyScenario : MonoBehaviour {
 			if (player.CanTakeAction (enemyAction)) {
 				scenarioScript.Add(player.ActionTaken (enemyAction, enemy.EnemyName));
 				battleLog.AddNewElement(GetNextScriptAndAdvanceIndex());
-//				
+				//				battleLogTextUI.text += "\n\n";
+				//				battleLogTextUI.text += GetNextScriptAndAdvanceIndex ();
 			} else {
 				scenarioScript.Add(player.ActionNotTaken (enemyAction, enemy.EnemyName));
 				battleLog.AddNewElement(GetNextScriptAndAdvanceIndex());
-//				
+				//				battleLogTextUI.text += "\n\n";
+				//				battleLogTextUI.text += GetNextScriptAndAdvanceIndex ();
 			}
 			if (player.IsDead ()) {
 				battleLog.AddNewElement(player.defeated);
-//				
+				//				battleLogTextUI.text += "\n";
+				//				battleLogTextUI.text += player.defeated;
 				playerinput.enabled = false;
 			}
 		}
@@ -116,15 +125,15 @@ public class EnemyScenario : MonoBehaviour {
 	}
 
 	public void EnemyTurn() {
-		
+
 	}
 
 	public void OnTrigger(BaseEvent e)
 	{	
 		scenarioScript = new List<string>() {
-			"Oh Shit!",
-			"The " + enemy.EnemyName + " suddenly blocks your way, what do you wanna do?"
-
+			"WTF",
+			"You see the principle, but he is lying down on the green line, wait, he is tied on greenline by with ropes by a 3 Korean brothers.", 
+			"What is your action now?"		
 		};
 
 		theEvent = e;
@@ -134,14 +143,12 @@ public class EnemyScenario : MonoBehaviour {
 		// Lock player movement
 		player.lockPlayer();
 
-//		battleLogTextUI.text = GetNextScriptAndAdvanceIndex();
+		//		battleLogTextUI.text = GetNextScriptAndAdvanceIndex();
 		battleLog.AddNewElement(GetNextScriptAndAdvanceIndex());
 
 		talkButton.onClick.AddListener(OnTalk);
-		player.lockPlayer ();
 
-        showEnemyDescription.SetEnemy(enemy);
-//
+		showEnemyDescription.SetEnemy(enemy);
 		avatar.sprite = avt;
 
 		inputmg.sindex = ScenarioIndex;
@@ -149,7 +156,7 @@ public class EnemyScenario : MonoBehaviour {
 
 	private void OnTalk()
 	{
-		
+
 		if (scenarioScriptIndex == scenarioScript.Count - 1) {
 			playerinput.enabled = true;
 		}
@@ -161,21 +168,19 @@ public class EnemyScenario : MonoBehaviour {
 
 		} else
 		{
-//			battleLogTextUI.text += "\n\n";
-//			battleLogTextUI.text += GetNextScriptAndAdvanceIndex();
+			//			battleLogTextUI.text += "\n\n";
+			//			battleLogTextUI.text += GetNextScriptAndAdvanceIndex();
 			battleLog.AddNewElement(GetNextScriptAndAdvanceIndex());
 			Debug.Log (scenarioScriptIndex.ToString ());
 		}
-
-
 	}
 
 	private void RebuildScenario() {
 		string[] initText = 
 		{
-			"Oh Shit!",
-			"The " + enemy.EnemyName + " suddenly blocks your way, what do you wanna do?"
-
+			"WTF",
+			"You see the principle, but he is lying down on the green line, wait, he is tied on greenline by with ropes by a 3 Korean brothers.", 
+			"What is your action now?"
 		};
 		scenarioScript = new List<string>();
 		battleLog.ClearOldElement();
@@ -196,12 +201,10 @@ public class EnemyScenario : MonoBehaviour {
 		player.unlockPlayer();
 		playerinput.enabled = false;
 		RebuildScenario ();
-
 		inputmg.sindex = 0;
 
 	}
-
 	void update() {
-		
+
 	}
 }

@@ -40,6 +40,9 @@ public class player : MonoBehaviour {
 		//initialize player's reaction list
 		myReactionList.Add (ActionManager.ALL_ACTIONS.SLAP);
 		myReactionList.Add (ActionManager.ALL_ACTIONS.MOCK);
+		myReactionList.Add (ActionManager.ALL_ACTIONS.TRI_THIS);
+		myReactionList.Add (ActionManager.ALL_ACTIONS.TRI_PUNCH);
+		myReactionList.Add (ActionManager.ALL_ACTIONS.POP_DANCING);
 
 		//adding Traits
 
@@ -54,41 +57,52 @@ public class player : MonoBehaviour {
 
 	public void moveUp() {
 		if (!locker) {
-			transform.Translate (Vector2.up * 1);
-			BaseEvent e = GetCurrentEvent ();
-			if (e) {
-				e.Trigger ();
-			}
+            StartCoroutine(Move(Vector2.up));
 		}
 
 	}
 	public void moveR() {
 		if (!locker) {
-			transform.Translate (Vector2.right * 1);
-			BaseEvent e = GetCurrentEvent ();
-			if (e) {
-				e.Trigger ();
-			}
-		}
+            StartCoroutine(Move(Vector2.right));
+        }
 	}
 	public void moveL() {
 		if (!locker) {
-			transform.Translate (Vector2.left * 1);
-			BaseEvent e = GetCurrentEvent ();
-			if (e) {
-				e.Trigger ();
-			}
-		}
+            StartCoroutine(Move(Vector2.left));
+        }
 	}
 	public void moveDown() {
 		if (!locker) {
-			transform.Translate (Vector2.down * 1);
-			BaseEvent e = GetCurrentEvent ();
-			if (e) {
-				e.Trigger ();
-			}
-		}
+            StartCoroutine(Move(Vector2.down));
+        }
 	}
+
+    private IEnumerator Move(Vector2 dVector)
+    {
+        lockPlayer();
+
+        Vector2 endLocation = transform.position + new Vector3(dVector.x, dVector.y, 0);
+        float duration = .55f;
+        float timeStep = 1f / 50f;
+        Vector2 dVectorPerStep = dVector * timeStep / duration;
+        float startTime = Time.time;
+
+        while (Time.time <= startTime + duration)
+        {
+            transform.Translate(dVectorPerStep);
+            yield return new WaitForFixedUpdate();
+        }
+        transform.position = endLocation;
+        unlockPlayer();
+
+        // trigger current event
+        BaseEvent e = GetCurrentEvent();
+        if (e)
+        {
+            e.Trigger();
+        }
+
+    }
 
 	private BaseEvent GetCurrentEvent() {
 		return TileManager.GetAllGameTiles ()
@@ -127,13 +141,34 @@ public class player : MonoBehaviour {
 
             traitAffected.currentValue -= 40;
         }
+		else if (enemyAction == "TRI_THIS") {
+			Trait traitAffected = GetTrait(Trait.Type.MENTAL);
+			actionTaken = string.Format ("The {0} approach you slowly with a smile on their face, two of them grabbed you by the arm making u unable to move, then the oldest brother approach you from behind and 적극적으로 당신의 자식을 삽입. After everything is over you swore to yourself not to tell anyone what just happend.", 
+				enemyname, enemyAction, traitAffected.decrementResponse);
+
+			traitAffected.currentValue -= 40;
+		}
+		else if (enemyAction == "TRI_PUNCH") {
+			Trait traitAffected = GetTrait(Trait.Type.PHYSICAL);
+			actionTaken = string.Format ("Each one of the {0} give you a punch in your face. {2}", 
+				enemyname, enemyAction, traitAffected.decrementResponse);
+
+			traitAffected.currentValue -= 20;
+		}
+		else if (enemyAction == "POP_DANCING") {
+			Trait traitAffected = GetTrait(Trait.Type.PHYSICAL);
+			actionTaken = string.Format ("The {0} start SHITTY and terrible {1} and your eyes are injured.", 
+				enemyname, enemyAction, traitAffected.decrementResponse);
+
+			traitAffected.currentValue -= 10;
+		}
 
 		return actionTaken;
 	}
 
 	//Giving response when player is NOT taken the given action
 	public string ActionNotTaken(string enemyAction, string enemyname) {
-		actionNotTaken = string.Format ("{0} tries to {1} you but you have a tough ass! Damage Aviod.", 
+		actionNotTaken = string.Format ("{0} tries to {1} you but you have a tough ass! Damage Avoid.", 
 			enemyname, enemyAction);
 
 		return actionNotTaken;

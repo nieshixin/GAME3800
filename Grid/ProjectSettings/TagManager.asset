@@ -13,6 +13,7 @@ TagManager:
   - BattleLog
   - NPCName
   - EnemyDescriptionUI
+  - NPCAvatar
   layers:
   - Default
   - TransparentFX
@@ -22,7 +23,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Player
   - 
   - 
   - 
@@ -47,6 +48,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Player
+    uniqueID: 3561901129
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
