@@ -23,8 +23,9 @@ public class ShowEnemyDescription : MonoBehaviour {
 
     public void AddNewDescription(string description)
     {
-        GetComponent<Text>().text += System.Environment.NewLine;
-        GetComponent<Text>().text += description;
+       
+        GetComponent<Text>().text += "- " + description;
+		GetComponent<Text>().text += System.Environment.NewLine;
     }
 
 

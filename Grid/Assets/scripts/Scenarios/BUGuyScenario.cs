@@ -3,8 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
-public class TriBroScenario : MonoBehaviour {
-
+public class BUGuyScenario : MonoBehaviour {
 	private Canvas uiCanvas;
 	private Text battleLogTextUI;
 	private Button talkButton;
@@ -17,11 +16,11 @@ public class TriBroScenario : MonoBehaviour {
 	private ShowEnemyDescription showEnemyDescription;
 	private InputManager inputmg;
 
-	private int ScenarioIndex = 2;
+	private int ScenarioIndex = 3;
 	private List<string> scenarioScript;
 	public Sprite avt;
 	private Image avatar;
-	public KoreanTriBro enemy;
+	public BUGUY enemy;
 
 	public Sprite defAvatar;
 	void Start()
@@ -46,8 +45,13 @@ public class TriBroScenario : MonoBehaviour {
 
 
 		scenarioScript = new List<string>() {
-			"WTF!",
-			"You see the president, but he is lying down on the green line, wait, he was tied on the railway by 3 Korean brothers.", 
+			"Suprise MotherF**KER!",
+			"As u steps onto the center of the grassfield, a shining light blasted your senses, now you are blind", 
+			"'kill these NorthEastern scums!' you heard vile dialogues from voices that are kind of BU but not really. ",
+			" You asked: 'who are you assholes?' \n", 
+			"voices that are kind of BU but not really: 'we are Boston University freedom fighters! ",
+			"So long has your school be shittin on our heads, is time to reclaim whats ours! make BU great again!'",
+			"Then A BU GUY stands in front of you.",
 			"What is your action now?"
 		};
 	}
@@ -135,7 +139,7 @@ public class TriBroScenario : MonoBehaviour {
 
 	public void OnTrigger(BaseEvent e)
 	{	
-		
+
 
 		theEvent = e;
 		uiCanvas = theEvent.UICanvas;
@@ -204,8 +208,5 @@ public class TriBroScenario : MonoBehaviour {
 
 		//set avatar back to default
 		avatar.sprite = defAvatar;
-	}
-	void update() {
-
 	}
 }

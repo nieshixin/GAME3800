@@ -35,7 +35,6 @@ public class Trait {
 
     public static Trait GetTrait(Type type, List<Trait> traits)
     {
-        if (traits == null || traits.Count == 0 || !traits.Any(t => t.type == type)) throw new System.Exception("No trait '" + type + "' on player");
         return traits.Where(trait => trait.type == type).First();
     }
 

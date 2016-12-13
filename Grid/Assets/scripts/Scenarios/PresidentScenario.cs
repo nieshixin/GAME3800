@@ -2,8 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
-
-public class TriBroScenario : MonoBehaviour {
+public class PresidentScenario : MonoBehaviour {
 
 	private Canvas uiCanvas;
 	private Text battleLogTextUI;
@@ -15,15 +14,16 @@ public class TriBroScenario : MonoBehaviour {
 	private DynamicScrollView battleLog;
 	private Text NpcUI;
 	private ShowEnemyDescription showEnemyDescription;
+
 	private InputManager inputmg;
 
-	private int ScenarioIndex = 2;
+	public Sprite defAvt;
 	private List<string> scenarioScript;
+	private int ScenarioIndex = 4;
 	public Sprite avt;
 	private Image avatar;
-	public KoreanTriBro enemy;
+	public President enemy;
 
-	public Sprite defAvatar;
 	void Start()
 	{
 		//		battleLogTextUI = GameObject.FindGameObjectWithTag(Tags.BATTLE_LOG_TEXT_UI).GetComponent<Text>();
@@ -33,23 +33,28 @@ public class TriBroScenario : MonoBehaviour {
 		playerinput = GameObject.FindGameObjectWithTag (Tags.PLAYER_INPUT_FIELD).GetComponent<InputField> ();
 		playerinput.enabled = false;
 		showEnemyDescription = GameObject.FindGameObjectWithTag(Tags.ENEMY_DESCRIPTION_UI).GetComponent<ShowEnemyDescription>();
-		inputmg = GameObject.Find ("InputManager").GetComponent<InputManager> ();
-
-		Debug.Log(playerinput.onEndEdit.GetPersistentTarget (2).ToString());
 
 		NpcUI = GameObject.FindGameObjectWithTag (Tags.NPC_NAME).GetComponent<Text> ();
+		inputmg = GameObject.Find ("InputManager").GetComponent<InputManager> ();
+
 		avatar = GameObject.FindGameObjectWithTag (Tags.ENEMY_AVATAR).GetComponent<Image> ();
 		//Initialize Enemy
 		//		enemy = GameObject.Find("EnemyManager").GetComponent<enemyExample>();
 
 		//		Debug.Log("Enemy Name INIT: " + enemy.EnemyName);
 
-
 		scenarioScript = new List<string>() {
-			"WTF!",
-			"You see the president, but he is lying down on the green line, wait, he was tied on the railway by 3 Korean brothers.", 
-			"What is your action now?"
+			" Oh Shit! ",
+			" The Ultimate DoucheBag suddenly blocks your way, what do you wanna do?", 
+			" USER GUIDE 2.0! ",
+			" To battle, type ONLY 1 word each time! ",
+			" THAT'S ALL! ",
+			" Now, TYPE! "
+
+
 		};
+
+
 	}
 
 	//List<string> scenarioScript = new List<string>
@@ -82,22 +87,15 @@ public class TriBroScenario : MonoBehaviour {
 			if (enemy.CanTakeAction (input)) {
 				scenarioScript.Add (enemy.ActionTaken (input));
 				battleLog.AddNewElement(GetNextScriptAndAdvanceIndex());
-				//				battleLogTextUI.text += "\n\n";
-				//				battleLogTextUI.text += GetNextScriptAndAdvanceIndex ();
-
-
+				//				
 			} else {
 				scenarioScript.Add (enemy.ActionNotTaken (input));
 				battleLog.AddNewElement(GetNextScriptAndAdvanceIndex());
-				//				battleLogTextUI.text += "\n\n";
-				//				battleLogTextUI.text += GetNextScriptAndAdvanceIndex ();
-
+				//				
 			}
 		}
 
 		if (enemy.IsDead ()) {
-			//			battleLogTextUI.text += "\n\n";
-			//			battleLogTextUI.text += enemy.defeated;
 			battleLog.AddNewElement(enemy.defeated);
 			playerinput.enabled = false;
 		} else {
@@ -107,18 +105,15 @@ public class TriBroScenario : MonoBehaviour {
 			if (player.CanTakeAction (enemyAction)) {
 				scenarioScript.Add(player.ActionTaken (enemyAction, enemy.EnemyName));
 				battleLog.AddNewElement(GetNextScriptAndAdvanceIndex());
-				//				battleLogTextUI.text += "\n\n";
-				//				battleLogTextUI.text += GetNextScriptAndAdvanceIndex ();
+				//				
 			} else {
 				scenarioScript.Add(player.ActionNotTaken (enemyAction, enemy.EnemyName));
 				battleLog.AddNewElement(GetNextScriptAndAdvanceIndex());
-				//				battleLogTextUI.text += "\n\n";
-				//				battleLogTextUI.text += GetNextScriptAndAdvanceIndex ();
+				//				
 			}
 			if (player.IsDead ()) {
 				battleLog.AddNewElement(player.defeated);
-				//				battleLogTextUI.text += "\n";
-				//				battleLogTextUI.text += player.defeated;
+				//				
 				playerinput.enabled = false;
 			}
 		}
@@ -135,7 +130,13 @@ public class TriBroScenario : MonoBehaviour {
 
 	public void OnTrigger(BaseEvent e)
 	{	
-		
+
+
+		//		scenarioScript = new List<string>() {
+		//			"Oh Shit!",
+		//			"The " + enemy.EnemyName + " suddenly blocks your way, what do you wanna do?"
+		//
+		//		};
 
 		theEvent = e;
 		uiCanvas = theEvent.UICanvas;
@@ -148,8 +149,10 @@ public class TriBroScenario : MonoBehaviour {
 		battleLog.AddNewElement(GetNextScriptAndAdvanceIndex());
 
 		talkButton.onClick.AddListener(OnTalk);
+		player.lockPlayer ();
 
 		showEnemyDescription.SetEnemy(enemy);
+		//
 		avatar.sprite = avt;
 
 		inputmg.sindex = ScenarioIndex;
@@ -174,12 +177,15 @@ public class TriBroScenario : MonoBehaviour {
 			battleLog.AddNewElement(GetNextScriptAndAdvanceIndex());
 			Debug.Log (scenarioScriptIndex.ToString ());
 		}
+
+
 	}
 
 	private void RebuildScenario() {
 		string[] initText = 
 		{
-			"The Korean brothers ran away, the president is safe now."
+			"You had defeated" + enemy.EnemyName + ", he's laying on the ground and lost his consciousness."
+
 		};
 		scenarioScript = new List<string>(initText);
 		battleLog.ClearOldElement();
@@ -200,11 +206,11 @@ public class TriBroScenario : MonoBehaviour {
 		player.unlockPlayer();
 		playerinput.enabled = false;
 		RebuildScenario ();
-		inputmg.sindex = 0;
 
-		//set avatar back to default
-		avatar.sprite = defAvatar;
+		inputmg.sindex = 0;
+		avatar.sprite = defAvt;
 	}
+
 	void update() {
 
 	}

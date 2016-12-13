@@ -44,6 +44,16 @@ public class EnemyScenario : MonoBehaviour {
 
 //		Debug.Log("Enemy Name INIT: " + enemy.EnemyName);
 
+		scenarioScript = new List<string>() {
+			" Oh Shit! ",
+			" The Ultimate DoucheBag suddenly blocks your way, what do you wanna do?", 
+			" USER GUIDE 2.0! ",
+			" To battle, type ONLY 1 word each time! ",
+			" THAT'S ALL! ",
+			" Now, TYPE! "
+
+
+		};
 
 
 	}
@@ -123,11 +133,11 @@ public class EnemyScenario : MonoBehaviour {
 	{	
 		
 
-		scenarioScript = new List<string>() {
-			"Oh Shit!",
-			"The " + enemy.EnemyName + " suddenly blocks your way, what do you wanna do?"
-
-		};
+//		scenarioScript = new List<string>() {
+//			"Oh Shit!",
+//			"The " + enemy.EnemyName + " suddenly blocks your way, what do you wanna do?"
+//
+//		};
 
 		theEvent = e;
 		uiCanvas = theEvent.UICanvas;
@@ -178,7 +188,7 @@ public class EnemyScenario : MonoBehaviour {
 			"You had defeated" + enemy.EnemyName + ", he's laying on the ground and lost his consciousness."
 
 		};
-		scenarioScript = new List<string>();
+		scenarioScript = new List<string>(initText);
 		battleLog.ClearOldElement();
 		NpcUI.text = "";
 

@@ -43,11 +43,20 @@ public class player : MonoBehaviour {
 		myReactionList.Add (ActionManager.ALL_ACTIONS.TRI_THIS);
 		myReactionList.Add (ActionManager.ALL_ACTIONS.TRI_PUNCH);
 		myReactionList.Add (ActionManager.ALL_ACTIONS.POP_DANCING);
+		myReactionList.Add (ActionManager.ALL_ACTIONS.SHOUT);
+		myReactionList.Add (ActionManager.ALL_ACTIONS.ATTACK);
+		myReactionList.Add (ActionManager.ALL_ACTIONS.PUNCH);
+		myReactionList.Add (ActionManager.ALL_ACTIONS.TUITION);
+		myReactionList.Add (ActionManager.ALL_ACTIONS.TEACH);
+		myReactionList.Add (ActionManager.ALL_ACTIONS.PILL);
+		myReactionList.Add (ActionManager.ALL_ACTIONS.FISHING);
+		myReactionList.Add (ActionManager.ALL_ACTIONS.BULL_CHARGE);
+		myReactionList.Add (ActionManager.ALL_ACTIONS.FART);
 
 		//adding Traits
 
-		Trait physical = new Trait ("Physical", Trait.Type.PHYSICAL, "Feeling healthy", "Just another day", "Feel painful", 100, 100, "Better", "You are physically injured.");
-		Trait mental = new Trait ("Mental", Trait.Type.MENTAL, "good", "meh", "saw justin bieber today", 100, 100, "Better", "Your tiny heart is slightly broken.");
+		Trait physical = new Trait ("Physical", Trait.Type.PHYSICAL, "Feeling healthy", "A little bit hurt", "Almost ded", 100, 100, "Better", "You are physically injured.");
+		Trait mental = new Trait ("Mental", Trait.Type.MENTAL, "Feeling Great", "Sad", "Supa Depressed", 100, 100, "Better", "Your tiny heart was slightly broken.");
 
 		listOfTraits.Add (physical);
 		listOfTraits.Add (mental);
@@ -162,6 +171,62 @@ public class player : MonoBehaviour {
 
 			traitAffected.currentValue -= 10;
 		}
+		else if (enemyAction == "SHOUT") {
+			Trait traitAffected = GetTrait(Trait.Type.PHYSICAL);
+			actionTaken = string.Format ("The {0} start {1}ing at you 'I AM FROM BU!'. Then nothing happens.", 
+				enemyname, enemyAction);
+
+//			traitAffected.currentValue -= 10;
+		}
+		else if (enemyAction == "PUNCH" || enemyAction == "KICK" || enemyAction == "ATTACK") {
+			Trait traitAffected = GetTrait(Trait.Type.PHYSICAL);
+			actionTaken = string.Format ("The {0} tries to {1} you, but {0} can not see you because his eyes are blocked by his hat!", 
+				enemyname, enemyAction);
+
+			traitAffected.currentValue -= 0;
+		}
+		else if (enemyAction == "TUITION") {
+			Trait traitAffected = GetTrait(Trait.Type.MENTAL);
+			actionTaken = string.Format ("The {0} decides to raise the {1} fees for another 100%, you felt heart broken", 
+				enemyname, enemyAction);
+
+			traitAffected.currentValue -= 20;
+		}
+		else if (enemyAction == "TEACH") {
+			Trait traitAffected = GetTrait(Trait.Type.MENTAL);
+			actionTaken = string.Format ("The {0} injected 20cc of knowledge in your brain, you felt fullfilled but also dirty.", 
+				enemyname, enemyAction);
+			
+			traitAffected.currentValue -= 10;
+		}
+		else if (enemyAction == "PILL") { 
+			actionTaken = string.Format ("The {0} whoop out 20 vitamin {1}s and starts putting them into his body. ", 
+				enemyname, enemyAction);
+			GameObject.Find ("EnemyManager").GetComponent<President> ().GetTrait (Trait.Type.PHYSICAL).currentValue += 100;
+		}
+		else if (enemyAction == "FISHING") {
+			Trait traitAffected = GetTrait(Trait.Type.MENTAL);
+			actionTaken = string.Format ("The {0} whoop out a fishing pod out of nowhere and starts {1}. What the f*** is he doing?? You felt totally fucked in the mind. ", 
+				enemyname, enemyAction);
+
+			traitAffected.currentValue -= 5;
+		}
+		else if (enemyAction == "BULL_CHAGER") {
+			Trait traitAffected = GetTrait(Trait.Type.PHYSICAL);
+			actionTaken = string.Format ("The {0} starts making sounds as if he is trying really ard to poop, he suddenly {1} you with his horn.", 
+				enemyname, enemyAction);
+			traitAffected.currentValue -= 25;
+			GameObject.Find ("EnemyManager").GetComponent<President> ().GetTrait (Trait.Type.PHYSICAL).currentValue -= 20;
+		}
+		else if (enemyAction == "FART") {
+			Trait traitAffected = GetTrait(Trait.Type.MENTAL);
+			Trait traitAffected2 = GetTrait(Trait.Type.PHYSICAL);
+			actionTaken = string.Format ("The {0} unleash 20 cc of poison gas into the air, and the result is fabulous.", 
+				enemyname, enemyAction);
+			traitAffected2.currentValue -= 20;
+			traitAffected.currentValue -= 20;
+		}
+
 
 		return actionTaken;
 	}

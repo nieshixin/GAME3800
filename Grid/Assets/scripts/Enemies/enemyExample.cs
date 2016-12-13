@@ -21,7 +21,7 @@ public class enemyExample : EnemyBase {
 		myActionList.Add(ActionManager.ALL_ACTIONS.MOCK);
 		myActionList.Add(ActionManager.ALL_ACTIONS.KICK);
 
-		this.EnemyName = "The Ultimate Douch Bag";
+		this.EnemyName = "The Ultimate DoucheBag";
         //Declaring Traits
         traits.Add(new Trait("Physical", Trait.Type.PHYSICAL, "Healthy", "Not so healthy", "Almost ded", 100, 100, "Better", "Enemy gets slightly injured."));
 		traits.Add(new Trait ("Mental", Trait.Type.MENTAL, "Super duper", "Sad", "Breaking down", 100, 100, "Better", "You successfully hurt his heart!"));

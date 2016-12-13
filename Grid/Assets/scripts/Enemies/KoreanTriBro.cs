@@ -29,8 +29,8 @@ public class KoreanTriBro : EnemyBase {
 
 		this.EnemyName = "Korean Tri-Bro";
 		//Declaring Traits
-		traits.Add(new Trait("Physical", Trait.Type.PHYSICAL, "Healthy", "Not so healthy", "Almost ded", 100, 100, "It's pain for you, but it's joy for them.", "Enemy gets slightly injured."));
-		traits.Add(new Trait ("Mental", Trait.Type.MENTAL, "Super duper", "Sad", "Breaking down", 100, 100, "They suddenly get hyped!", "They pull out their father's photo and start crying!"));
+		traits.Add(new Trait("Physical", Trait.Type.PHYSICAL, "I'm feeling good!", "Not so healthy", "Almost ded", 100, 100, "It's pain for you, but it's joy for them.", "Enemy gets slightly injured."));
+		traits.Add(new Trait ("Mental", Trait.Type.MENTAL, "Super duper", "Not Cool", "Mentally Breaking down", 100, 100, "They suddenly get hyped!", "They pull out their father's photo and start crying!"));
 		this.defeated = "Congradulations! You defeat " + EnemyName + "!" + "\nHowever, they run into 3 different directions so it's impossible to chase them down!";
 		player = GameObject.FindGameObjectWithTag (Tags.PLAYER).GetComponent<player> ();
 		Debug.Log (myActionList [UnityEngine.Random.Range(0, myActionList.Count)].ToString ());
