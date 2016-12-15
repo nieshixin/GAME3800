@@ -158,6 +158,8 @@ public class PresidentScenario : MonoBehaviour {
 		avatar.sprite = avt;
 
 		inputmg.sindex = ScenarioIndex;
+
+		player.Reset();
 	}
 
 	private void OnTalk()

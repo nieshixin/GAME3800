@@ -50,7 +50,7 @@ public class President : EnemyBase {
 
 		if (PlayerTextInput == "MOCK" || PlayerTextInput == "TAUNT") {
 			Trait affectedTrait = GetTrait(Trait.Type.MENTAL);
-			this.actionTaken = string.Format ("You tried to {0} the {1}, but AT WHAT COST? He has been {0} for 300+ years. He taunted you back as if you are the worthless pievce of shit.", 
+			this.actionTaken = string.Format ("You tried to {0} the {1}, but AT WHAT COST? He has been {0} for 300+ years. He taunted you back as if you are the worthless piece of shit.", 
 				PlayerTextInput, this.EnemyName);
 			player.GetTrait (Trait.Type.MENTAL).currentValue -= 50;
 

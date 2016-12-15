@@ -40,7 +40,7 @@ public class BUGUY : EnemyBase {
 		
 		if (PlayerTextInput == "MOCK") {
 			Trait affectedTrait = GetTrait(Trait.Type.MENTAL);
-			this.actionTaken = string.Format ("You fail to talk to {1} since he is completed sinked into the music world!", 
+			this.actionTaken = string.Format ("You fail to talk to {0} since he is completed sinked into the music world!", 
 				this.EnemyName);
 //			affectedTrait.currentValue -= 34;
 
