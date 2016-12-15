@@ -30,7 +30,7 @@ public class BUGUY : EnemyBase {
 		//Declaring Traits
 		traits.Add(new Trait("Physical", Trait.Type.PHYSICAL, "I'm feeling good!", "Not so healthy", "Almost dead", 100, 100, "It's pain for you, but it's joy for them.", "Enemy gets slightly injured."));
 		traits.Add(new Trait ("Mental", Trait.Type.MENTAL, "Super duper", "Not Cool", "Mentally Breaking down", 100, 100, "They suddenly get hyped!", ""));
-		this.defeated = "Congradulations! You defeat " + EnemyName + "!" + "\nHowever, they run into 3 different directions so it's impossible to chase them down!";
+		this.defeated = "Congradulations! You defeat " + EnemyName + "!" + "\n However it would be a miracle if you can't defeat him, because HE CAN't HURT you...";
 		player = GameObject.FindGameObjectWithTag (Tags.PLAYER).GetComponent<player> ();
 		Debug.Log (myActionList [UnityEngine.Random.Range(0, myActionList.Count)].ToString ());
 	}
@@ -73,7 +73,7 @@ public class BUGUY : EnemyBase {
 			this.actionTaken = string.Format ("You decide to {0} the {1} in his face.{1} shouted :'OUCH!'. {2}",
 				PlayerTextInput, this.EnemyName, affectedTrait.decrementResponse);
 			//			affectedTrait.currentValue -=;
-			player.GetTrait(Trait.Type.PHYSICAL).currentValue -= 34;
+			affectedTrait.currentValue -= 34;
 		}
 
 		return actionTaken;

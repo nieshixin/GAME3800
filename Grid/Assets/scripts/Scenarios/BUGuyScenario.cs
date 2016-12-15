@@ -45,7 +45,7 @@ public class BUGuyScenario : MonoBehaviour {
 
 
 		scenarioScript = new List<string>() {
-			"Suprise MotherF**KER!",
+			"Suprise!",
 			"As u steps onto the center of the grassfield, a shining light blasted your senses, now you are blind", 
 			"'kill these NorthEastern scums!' you heard vile dialogues from voices that are kind of BU but not really. ",
 			" You asked: 'who are you assholes?' \n", 
@@ -183,7 +183,7 @@ public class BUGuyScenario : MonoBehaviour {
 	private void RebuildScenario() {
 		string[] initText = 
 		{
-			"The Korean brothers ran away, the president is safe now."
+			"The BU GUY LIED on the ground peacefully with a smile on his face."
 		};
 		scenarioScript = new List<string>(initText);
 		battleLog.ClearOldElement();

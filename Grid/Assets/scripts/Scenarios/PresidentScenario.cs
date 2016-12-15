@@ -24,6 +24,7 @@ public class PresidentScenario : MonoBehaviour {
 	private Image avatar;
 	public President enemy;
 
+	public bool defeated  = false;
 	void Start()
 	{
 		//		battleLogTextUI = GameObject.FindGameObjectWithTag(Tags.BATTLE_LOG_TEXT_UI).GetComponent<Text>();
@@ -44,12 +45,12 @@ public class PresidentScenario : MonoBehaviour {
 		//		Debug.Log("Enemy Name INIT: " + enemy.EnemyName);
 
 		scenarioScript = new List<string>() {
-			" Oh Shit! ",
-			" The Ultimate DoucheBag suddenly blocks your way, what do you wanna do?", 
-			" USER GUIDE 2.0! ",
-			" To battle, type ONLY 1 word each time! ",
-			" THAT'S ALL! ",
-			" Now, TYPE! "
+			" It's time! ",
+			" You have to finally face the Evil President!", 
+			" The Evil President is 336 years old.",
+			" And he has ONE famous Momento: ",
+			" Respect me! I am OLD! ",
+			" Now, Time to fight. "
 
 
 		};
@@ -97,6 +98,7 @@ public class PresidentScenario : MonoBehaviour {
 
 		if (enemy.IsDead ()) {
 			battleLog.AddNewElement(enemy.defeated);
+			defeated = true;
 			playerinput.enabled = false;
 		} else {
 			//Enemy Generate Action towards player
@@ -182,12 +184,27 @@ public class PresidentScenario : MonoBehaviour {
 	}
 
 	private void RebuildScenario() {
-		string[] initText = 
-		{
-			"You had defeated" + enemy.EnemyName + ", he's laying on the ground and lost his consciousness."
+		if (defeated) {
+			string[] initText = 
+			{
+				"You had defeated" + enemy.EnemyName + ", he's laying on the ground and lost his consciousness."
 
-		};
-		scenarioScript = new List<string>(initText);
+			};
+			scenarioScript = new List<string>(initText);
+		}
+		else {
+			scenarioScript = new List<string>() {
+				" It's time! ",
+				" You have to finally face the Evil President!", 
+				" The Evil President is 336 years old.",
+				" And he has ONE famous Momento: ",
+				" Respect me! I am OLD! ",
+				" Now, Time to fight. "
+
+
+			};
+		}
+			
 		battleLog.ClearOldElement();
 		NpcUI.text = "";
 
